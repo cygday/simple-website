@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage("checkout") {
             steps {
-                git url: 'git@github.com:cygday/simple-website.git', branch: 'main'
+                git url: "git@github.com:cygday/simple-website.git", branch: "main"
             }
         }
         stage("build docker image") {
