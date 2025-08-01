@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-websit
+  selector:
+    replicas: 1
+    matchLabels:
+      app: simple-website
+    template:
+      metadata:
+        labels:
+          app: simple-website
+    spec:
+      containers:
+      - name: simple-website
+        image: cygday/simple-website:latest
+        resources:
+          limits:
+            memory: "2Gi"
+            cpu: "1"
+        ports:
+        - containerPort: 80
