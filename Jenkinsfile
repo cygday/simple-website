@@ -3,9 +3,7 @@ pipeline {
     stages {
         stage("checkout") {
             steps {
-                sh "echo git clone"
-                git clone "https://github.com/cygday/simple-website.git"
-                git "https://github.com/cygday/simple-website.git"
+                git clone https://github.com/cygday/simple-website.git
             }
         }
         stage("build docker image") {
