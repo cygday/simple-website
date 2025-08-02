@@ -1,21 +1,27 @@
 pipeline {
     agent any
+
+    environment {
+        IMAGE_NAME = "cygday/simple-website:latest"
+    }
+    
     stages {
         stage("checkout") {
             steps {
-                git url: "git@github.com:cygday/simple-website.git", branch: "main"
+                // use build-in scm checkout
+                sh "echo checkout scm"
             }
         }
         stage("build docker image") {
             steps {
-                sh "docker build -t cygday/simple-website:latest ."
+                sh "docker build -t $IMAGE_NAME ."
             }
         }
         stage("push to docker hub") {
             steps {
-                withCredentials([usernamePassword(credentialsId: "dockerhub", usernameVariable: "cygday", passwordVariable: "cygday1@_Aa")]) {
-                    sh """echo  "$PASSWORD" | docker login -u "cygday" --password-stdin 
-                          docker push cygday/simple-website:latest"""
+                withCredentials([usernamePassword(credentialsId: "dockerhub", usernameVariable: "DOCKER_USER", passwordVariable: "DOCKER_PASS")]) {
+                    sh """echo  "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin 
+                          docker push $IMAGE_NAME"""
                 }
             }
         }
