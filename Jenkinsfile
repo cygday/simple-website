@@ -9,7 +9,7 @@ pipeline {
         stage("checkout") {
             steps {
                 // use build-in scm checkout
-                sh "echo checkout scm"
+                echo 'checkout scm'
             }
         }
         stage("build docker image") {
